@@ -1,7 +1,7 @@
 import struct
 import sys
 
-def convert_obj_to_custom_bin(obj_file, output_file):
+def convert_obj_to_custom_jsfm(obj_file, output_file):
     vertices = []
     triangles = []
     
@@ -20,21 +20,19 @@ def convert_obj_to_custom_bin(obj_file, output_file):
     with open(output_file, 'wb') as f:
         
         f.write(struct.pack('<I', 0xA1030))
+        f.write(struct.pack('<I', 0))
         for v in vertices:
-            f.write(struct.pack('<I', 0))
+            f.write(struct.pack('<I',0))
             f.write(struct.pack('<3f', *v))
 
         f.write(struct.pack('<I', 0xA3050))
+        f.write(struct.pack('<I', 0))
         for t in triangles:
-            f.write(struct.pack('<I', 0)) 
+            f.write(struct.pack('<I',0))
             f.write(struct.pack('<9f', *t))
 
         f.write(struct.pack('<I', 0xA4060)) 
 
 if __name__=="__main__":
-	convert_obj_to_custom_bin(sys.argv[1],sys.argv[2])
-
-
-
-
+	convert_obj_to_custom_jsfm(sys.argv[1],sys.argv[2])
 
